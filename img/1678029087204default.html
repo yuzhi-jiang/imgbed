@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <title>swagger api document</title>
+      <link rel="stylesheet" href="https://unpkg.com/ant-design-vue@1.4.10/dist/antd.min.css" />
+      <style>
+      
+.content-line {
+  height: 25px;
+  line-height: 25px;
+}
+.content-line-count {
+  height: 35px;
+  line-height: 35px;
+}
+.title {
+  margin-top: 25px;
+}
+.knife4j-description {
+ /*  width: 90%;
+  margin: 15px auto; */
+  margin-top: 5px;
+}
+.divider {
+  margin: 4px 0;
+}
+.divider-count {
+  margin: 8px 0;
+}
+.knife4j-document {
+  margin-top: 30px;
+}
+.api-tab {
+  margin-top: 15px;
+
+  .ant-tag {
+    height: 32px;
+    line-height: 32px;
+  }
+}
+.knife4j-menu-api-deprecated {
+  text-decoration: line-through;
+}
+
+.knife4j-api-title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #616368;
+  height: 35px;
+  line-height: 35px;
+}
+.knife4j-api-row {
+  height: 45px;
+  line-height: 45px;
+}
+
+.knife4j-api-summary {
+  border-color: #49cc90;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 2px;
+  cursor: pointer;
+}
+.knife4j-api-summary-method {
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 80px;
+  padding: 6px 15px;
+  text-align: center;
+  border-radius: 3px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  font-family: Titillium Web, sans-serif;
+  color: #fff;
+}
+.knife4j-api-summary-path {
+  font-size: 14px;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 3 auto;
+  flex: 0 3 auto;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  word-break: break-all;
+  padding: 0 32px;
+}
+
+.knife4j-api-post {
+  border-color: #49cc90;
+  background: rgba(73, 204, 144, 0.1);
+}
+.knife4j-api-post .knife4j-api-summary-method {
+  background: #49cc90;
+}
+
+.knife4j-api-get {
+  border-color: #61affe;
+  background: rgba(97, 175, 254, 0.1);
+}
+.knife4j-api-get .knife4j-api-summary-method {
+  background: #61affe;
+}
+.knife4j-api-head {
+  border-color: #9012fe;
+  background: rgba(144, 18, 254, 0.1);
+}
+.knife4j-api-head .knife4j-api-summary-method {
+  background: #9012fe;
+}
+.knife4j-api-put {
+  border-color: #fca130;
+  background: rgba(252, 161, 48, 0.1);
+}
+.knife4j-api-put .knife4j-api-summary-method {
+  background: #fca130;
+}
+.knife4j-api-delete {
+  border-color: #f93e3e;
+  background: rgba(249, 62, 62, 0.1);
+}
+.knife4j-api-delete .knife4j-api-summary-method {
+  background: #f93e3e;
+}
+.knife4j-api-options {
+  border-color: #0d5aa7;
+  background: rgba(13, 90, 167, 0.1);
+}
+.knife4j-api-options .knife4j-api-summary-method {
+  background: #0d5aa7;
+}
+.knife4j-api-patch {
+  border-color: #50e3c2;
+  background: rgba(80, 227, 194, 0.1);
+}
+.knife4j-api-patch .knife4j-api-summary-method {
+  background: #50e3c2;
+}
+#knife4jDoc ul{
+  padding-left: 10px;
+  list-style: none;
+  counter-reset: ordered;
+}
+
+#knife4jDoc ul li:before {
+  counter-increment: ordered;
+  content: counters(ordered,".")" ";
+  color:#1890ff;
+}
+.api-basic {
+  padding: 11px;
+}
+.api-basic-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+.api-basic-body {
+  font-size: 14px;
+  font-family: -webkit-body;
+}
+.knife4j-api-editor-show {
+  margin: 15px 0;
+  font: 100 12px/18px monaco, andale mono, courier new;
+  padding: 10px 12px;
+  border: #ccc 1px solid;
+  border-left-width: 4px;
+  background-color: #fefefe;
+  box-shadow: 0 0 4px #eee;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: #444;
+}
+.knife4j-api-editor-show .string { color: green; }        /*字符串的样式*/
+.knife4j-api-editor-show .number { color: darkorange; }    /*数字的样式*/
+.knife4j-api-editor-show .boolean { color: blue; }        /*布尔型数据的样式*/
+.knife4j-api-editor-show .null { color: magenta; }        /*null值的样式*/
+.knife4j-api-editor-show .key { color: red; }            /*key值的样式*/
+.api-description {
+  border-left: 4px solid #ddd;
+  line-height: 30px;
+}
+.api-body-desc {
+  padding: 10px;
+  min-height: 35px;
+  box-sizing: border-box;
+  border: 1px solid #e8e8e8;
+}
+.ant-card-body {
+  padding: 5px;
+}
+.api-title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 30px;
+  line-height: 30px;
+  border-left: 4px solid #00ab6d;
+  text-indent: 8px;
+}
+.content-line {
+  height: 25px;
+  line-height: 25px;
+}
+.content-line-count {
+  height: 35px;
+  line-height: 35px;
+}
+.divider {
+  margin: 4px 0;
+}
+.knife4j-doc-m{
+  position: fixed;
+  height: 500px;
+  width: 400px;
+  border: 1px solid #b7b4b4;
+  overflow-y: auto;
+  right: 12px;
+  top: 40px;
+  z-index: 9999;
+  background: #fcfafa;
+}
+
+      </style>
+  </head>
+  <body>
+      <div id="knife4jDocument" class="resume_preview_page" style="margin:10px auto;width:88%">
+      <div class="htmledit_views" >
+        <a-row>
+          <!--基础信息-->
+          <a-row>
+            <a-col :span="24">
+              <div class="title">
+                <h2>{{instance.title}}</h2>
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>简介</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.description" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>作者</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.contact" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>版本</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.version" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>host</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.host" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>basePath</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.basePath" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>服务Url</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.termsOfService" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>分组名称</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.name" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>分组url</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.url" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>分组location</h3>
+                  </a-col>
+                  <a-col :span="19"><span v-html="instance.location" /></a-col>
+                </a-row>
+                <a-divider class="divider" />
+              </div>
+              <div class="knife4j-description">
+                <a-row class="content-line">
+                  <a-col :span="5">
+                    <h3>接口统计信息</h3>
+                  </a-col>
+                  <a-col :span="19">
+                    <a-row class="content-line-count" v-for="param in instance.pathArrs" :key="param.method">
+                      <a-col :span="3">
+                        {{param.method}}
+                      </a-col>
+                      <a-col :span="2">
+                        <a-tag color="#108ee9">{{param.count}}</a-tag>
+                      </a-col>
+                      <a-divider class="divider-count" />
+                    </a-row>
+                  </a-col>
+                </a-row>
+              </div>
+            </a-col>
+          </a-row>
+    
+          <!--目录-->
+          <a-row id="knife4j-doc-m" class="knife4j-doc-m">
+            <a-row style="float: right;width: 57px;z-index: 10000;overflow: hidden;">
+              <a-button type="link" id="btnHide">隐藏</a-button>
+            </a-row>
+            <a-row v-if="hideShow" id="knife4jDoc">
+              <ul>
+                <li><a href="#knife4jDocument">主页</a></li>
+                <li v-for="tag in tags" :key="tag.name">
+                  <a :href="'#'+tag.name">{{tag.name}}</a>
+                  <ul>
+                    <li v-for="c in tag.childrens" :key="c.id"><a :href="'#'+c.operationId">{{c.summary}}</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </a-row>
+          </a-row>
+          <!--分组API信息-->
+          <!--遍历tags-->
+          <a-row v-for="tag in tags" :key="tag.name">
+            <h1 :id="tag.name">{{tag.name}}</h1>
+            <div class="knife4j-document" v-for="api in tag.childrens">
+              <!--接口基本信息-->
+              <a-row>
+                <a-row :id="api.operationId" class="knife4j-api-title">
+                  <span v-if="api.deprecated" class="knife4j-menu-api-deprecated">
+                    {{ api.summary }}
+                  </span>
+                  <span v-else>
+                    {{ api.summary }}
+                  </span>
+                </a-row>
+                <a-row :class="'knife4j-api-' + api.methodType.toLowerCase()">
+                  <div class="knife4j-api-summary">
+                    <span class="knife4j-api-summary-method">{{ api.methodType }}</span>
+                    <span class="knife4j-api-summary-path">{{ api.showUrl }}</span>
+                  </div>
+                </a-row>
+                <a-row class="knife4j-api-row">
+                  <a-col :span="12">
+                    <a-row>
+                      <a-col class="api-basic-title" :span="6">请求数据类型</a-col>
+                      {{ api.consumes }}
+                    </a-row>
+                  </a-col>
+                  <a-col :span="12">
+                    <a-row>
+                      <a-col class="api-basic-title" :span="6">响应数据类型</a-col>
+                      {{ api.produces }}
+                    </a-row>
+                  </a-col>
+                </a-row>
+              </a-row>
+              <div v-if="api.author">
+                <div class="api-title">
+                  开发者
+                </div>
+                <div v-if="api.author" v-html="api.author" class="api-body-desc"></div>
+              </div>
+              <!--接口描述-->
+              <div v-if="api.description">
+                <div class="api-title">
+                  接口描述
+                </div>
+                <div
+                  v-if="api.description"
+                  v-html="api.description"
+                  class="api-body-desc"
+                ></div>
+              </div>
+              <!--请求示例-->
+              <div v-if="api.requestValue">
+                <div class="api-title">
+                  请求示例
+                </div>
+                <pre
+                  class="knife4j-api-editor-show"
+                  v-html="formaterJson(api.requestValue)"
+                ></pre>
+              </div>
+              <div class="api-title">
+              请求参数
+              </div>
+              <a-table default-expand-all-rows :columns="columns" :data-source="api.reqParameters"
+                :row-key="genUnionTableKey"
+                size="small"
+                :pagination="page" >
+                  <template slot="requireTemplate" slot-scope="text">
+                    <span v-if="text" style="color:red">{{ text.toLocaleString() }}</span>
+                    <span v-else>{{ text.toLocaleString() }}</span>
+                  </template>
+
+                  <template slot="typeTemplate" slot-scope="text">
+                    <span :class="'knife4j-request-' + text">{{ text }}</span>
+                  </template>
+
+                  <template slot="datatypeTemplate" slot-scope="text, record">
+                    <data-type :text="text" :record="record"></data-type>
+                  </template>
+              </a-table>
+              <!--响应状态-->
+              <div class="api-title">
+                响应状态
+              </div>
+              <a-table
+                :columns="responseStatuscolumns"
+                :data-source="api.responseCodes"
+                row-key="code"
+                size="small"
+                :pagination="page"
+              >
+                <template slot="descriptionTemplate" slot-scope="text">
+                  <div v-html="text"></div>
+                </template>
+              </a-table>
+              <!--响应参数-->
+              <!--响应参数需要判断是否存在多个code-schema的情况-->
+              <div v-if="api.multipartResponseSchema">
+                <!--多个响应编码code的情况在离线文档中需要单独遍历分开-->
+                <a-tabs v-for="resp in api.multipCodeDatas" :key="resp.code">
+                  <a-tab-pane :tab="resp.code">
+                    <!--判断响应头-->
+                    <div v-if="resp.responseHeaderParameters">
+                      <div class="api-title">
+                        响应Header
+                      </div>
+                      <a-table
+                        :columns="responseHeaderColumns"
+                        :data-source="resp.responseHeaderParameters"
+                        row-key="id"
+                        size="small"
+                        :pagination="page"
+                      >
+                      </a-table>
+                    </div>
+                    <!--响应参数-->
+                    <div class="api-title">
+                      响应参数
+                    </div>
+                    <a-table
+                      :columns="responseParametersColumns"
+                      :data-source="resp.data"
+                      row-key="id"
+                      size="small"
+                      :pagination="page"
+                    >
+                    </a-table>
+                    <div class="api-title">
+                      响应示例
+                    </div>
+                    <div class="api-editor-show" v-if="resp.responseBasicType">
+                      {{ resp.responseText }}
+                    </div>
+                    <pre
+                      class="knife4j-api-editor-show"
+                      v-else
+                      v-html="formaterJson(resp.responseValue)"
+                    ></pre>
+                    <!-- <editor-show :value="resp.responseBasicType ? resp.responseText : resp.responseValue"></editor-show> -->
+                    <!-- <editor :value="resp.responseBasicType ? resp.responseText : resp.responseValue" @init="multiResponseSampleEditorInit" lang="json" theme="eclipse" width="100%" :height="editorMultiHeight"></editor> -->
+                  </a-tab-pane>
+                </a-tabs>
+              </div>
+              <div v-else>
+                <!--判断响应头-->
+                <div v-if="api.responseHeaderParameters">
+                  <div class="api-title">
+                    响应Header
+                  </div>
+                  <a-table
+                    :columns="responseHeaderColumns"
+                    :data-source="api.responseHeaderParameters"
+                    row-key="id"
+                    size="small"
+                    :pagination="page"
+                  >
+                  </a-table>
+                </div>
+                <!--响应参数-->
+                <div class="api-title">
+                  响应参数
+                </div>
+                <a-table
+                  :columns="responseParametersColumns"
+                  :data-source="api.multipData.data"
+                  row-key="id"
+                  size="small"
+                  :pagination="page"
+                >
+                </a-table>
+                <div class="api-title">
+                  响应示例
+                </div>
+                <div class="api-editor-show" v-if="api.multipData.responseBasicType">
+                  {{ api.multipData.responseText }}
+                </div>
+                <pre
+                  class="knife4j-api-editor-show"
+                  v-else
+                  v-html="formaterJson(api.multipData.responseValue)"
+                ></pre>
+              </div>
+              
+
+            <!--接口遍历结束-->
+            </div>
+          </a-row>
+      </a-row>
+
+      </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/ant-design-vue@1.4.10/dist/antd.min.js"></script>
+      <script type="text/javascript">
+      function getData(){
+        var datas={"instance":{"title":"swagger api document","description":"swagger api document","contact":"","version":"1.0","host":"localhost:8082","basePath":"/front","termsOfService":"http://localhost:8082/front/doc.html","name":"default","url":"/v2/api-docs","location":"/v2/api-docs","pathArrs":[{"method":"POST","count":10},{"method":"GET","count":10},{"method":"PUT","count":3},{"method":"PATCH","count":2}]},"hideShow":true,"tags":[{"name":"share-controller","description":null,"order":2147483647,"author":null,"childrens":[{"id":"9691da1af426e2bb0ba77a03f8a384f1","operationId":"cancelUsingPATCH","deprecated":false,"summary":"cancel","methodType":"PATCH","showUrl":"/front/share/cancel","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"share_id","children":null,"description":"share_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"204","description":"No Content","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param6","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param7","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param8","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param6","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param7","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param8","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param6","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param7","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param8","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"d912fca64addaeec50b54ee65429f9a8","operationId":"createUsingPOST","deprecated":false,"summary":"create","methodType":"POST","showUrl":"/front/share/create","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":"{\n  \"diskId\": \"\",\n  \"expiration\": \"\",\n  \"fileIdList\": [],\n  \"sharePwd\": \"\",\n  \"type\": 0\n}","reqParameters":[{"name":"shareBo","children":[{"name":"diskId","children":null,"description":"云盘id","in":null,"require":false,"type":"string","schemaValue":null},{"name":"expiration","children":null,"description":"过期时间,格式为: yyyy-MM-dd'T'HH:mm:ss'Z'","in":null,"require":false,"type":"string","schemaValue":null},{"name":"fileIdList","children":null,"description":"文件id列表","in":null,"require":false,"type":"array","schemaValue":"string"},{"name":"sharePwd","children":null,"description":"分享密码","in":null,"require":false,"type":"string","schemaValue":null},{"name":"type","children":null,"description":"分享文件的类型 1，文件，2，文件夹，3.txt,4.doc,5.other","in":null,"require":false,"type":"integer(int32)","schemaValue":null}],"description":"shareBo","in":"body","require":true,"type":"ShareBo","schemaValue":"ShareBo"}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param18","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param19","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param20","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param18","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param19","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param20","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param18","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param19","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param20","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"c3d645587306ea4cff726758664ba5c3","operationId":"listShareUsingGET","deprecated":false,"summary":"listShare","methodType":"GET","showUrl":"/front/share/list","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"pageNum","children":null,"description":"pageNum","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"pageSize","children":null,"description":"pageSize","in":"query","require":false,"type":"integer(int32)","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param32","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param33","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param34","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param32","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param33","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param34","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param32","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param33","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param34","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"36880da7b50e44f9c135e6ebe9017615","operationId":"updateExpiredUsingPATCH","deprecated":false,"summary":"updateExpired","methodType":"PATCH","showUrl":"/front/share/updateExpire","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"expiration","children":null,"description":"expiration","in":"query","require":true,"type":"string","schemaValue":null},{"name":"share_id","children":null,"description":"share_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"204","description":"No Content","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param41","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param42","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param43","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param41","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param42","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param43","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param41","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param42","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param43","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}}],"hasNew":false,"hasChanged":false},{"name":"文件模块","description":null,"order":2147483647,"author":null,"childrens":[{"id":"2654dfe83885d18c46b8a70bfa1af0c7","operationId":"completeUsingPOST","deprecated":false,"summary":"complete","methodType":"POST","showUrl":"/front/file/complete","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"file_id","children":null,"description":"file_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"upload_id","children":null,"description":"upload_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param50","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param51","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param52","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param50","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param51","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param52","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param50","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param51","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param52","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"a6d5385afded2654def7ee4c5aa3724d","operationId":"createWithFolders1UsingPOST","deprecated":false,"summary":"上传文件","methodType":"POST","showUrl":"/front/file/createWithFolders","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"check_name_mode","children":null,"description":"名称检查模式,分别是auto_rename（自动重命名）,overwrite(覆盖),refuse(丢弃此次上传)","in":"","require":true,"type":"String","schemaValue":"String"},{"name":"disk_id","children":null,"description":"云盘id","in":"","require":true,"type":"String","schemaValue":"String"},{"name":"name","children":null,"description":"filename","in":"","require":true,"type":"string","schemaValue":null},{"name":"params","children":null,"description":"params","in":"body","require":true,"type":"","schemaValue":null},{"name":"parent_file_id","children":null,"description":"父文件夹id","in":"","require":true,"type":"String","schemaValue":"String"},{"name":"type","children":null,"description":"上传类型,可以是file和folder","in":"","require":true,"type":"String","schemaValue":"String"}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param62","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param63","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param64","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param62","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param63","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param64","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param62","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param63","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param64","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"e4b4c5d6d772afcc78843053eee4e48e","operationId":"getFileHashUsingPOST","deprecated":false,"summary":"获取文件hash,方式为sha1，仅做测试使用","methodType":"POST","showUrl":"/front/file/hash","consumes":["multipart/form-data"],"produces":["*/*"],"author":null,"description":"<p>仅做测试使用</p>\n","requestValue":null,"reqParameters":[{"name":"file","children":null,"description":"file","in":"formData","require":true,"type":"file","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param69","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param70","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param71","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param69","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param70","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param71","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param69","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param70","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param71","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"1d585c26f61706679d5003b115a65117","operationId":"listByShareUsingGET","deprecated":false,"summary":"listByShare","methodType":"GET","showUrl":"/front/file/list_by_share","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"share_id","children":null,"description":"share_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"pageNum","children":null,"description":"pageNum","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"pageSize","children":null,"description":"pageSize","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"parent_file_id","children":null,"description":"parent_file_id","in":"query","require":false,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param79","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param80","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param81","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param79","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param80","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param81","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param79","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param80","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param81","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"421ceff97bb5e0a0d84e9dde40de9b3e","operationId":"searchUsingPOST","deprecated":false,"summary":"查找文件","methodType":"POST","showUrl":"/front/file/search","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"query","children":null,"description":"query","in":"query","require":true,"type":"string","schemaValue":null},{"name":"limit","children":null,"description":"limit","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"order_by","children":null,"description":"order_by","in":"query","require":false,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param89","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param90","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param91","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param89","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param90","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param91","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param89","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param90","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param91","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"35b60219381e90ead20494b9f347e237","operationId":"uploadPartUsingPUT","deprecated":false,"summary":"uploadPart","methodType":"PUT","showUrl":"/front/file/uploadPart","consumes":["multipart/form-data"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"file","children":null,"description":"file","in":"formData","require":true,"type":"file","schemaValue":null},{"name":"token","children":null,"description":"token","in":"query","require":true,"type":"string","schemaValue":null},{"name":"upload_id","children":null,"description":"upload_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param98","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param99","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param100","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param98","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param99","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param100","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param98","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param99","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param100","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}}],"hasNew":false,"hasChanged":true},{"name":"用户","description":null,"order":2147483647,"author":null,"childrens":[{"id":"67f541975a8300ec2390020095e64f01","operationId":"uploadAvatarUsingPOST","deprecated":false,"summary":"uploadAvatar","methodType":"POST","showUrl":"/front/user/avatar","consumes":["multipart/form-data"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"avatar","children":null,"description":"avatar","in":"formData","require":true,"type":"file","schemaValue":null},{"name":"userId","children":null,"description":"userId","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param106","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param107","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param108","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param106","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param107","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param108","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param106","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param107","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param108","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"7f86e76d1bdfb40322c6df6170412e75","operationId":"getcaptchaUsingGET","deprecated":false,"summary":"getcaptcha","methodType":"GET","showUrl":"/front/user/captcha","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"mobile","children":null,"description":"mobile","in":"query","require":true,"type":"string","schemaValue":null},{"name":"isForgetType","children":null,"description":"isForgetType","in":"query","require":false,"type":"boolean","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param114","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param115","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param116","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param114","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param115","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param116","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param114","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param115","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param116","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"b8dda01042ed8aa0970534d70f103641","operationId":"checkImageCaptchaUsingGET","deprecated":false,"summary":"checkImageCaptcha","methodType":"GET","showUrl":"/front/user/checkcaptcha","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"code","children":null,"description":"code","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param121","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param122","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param123","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param121","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param122","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param123","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param121","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param122","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param123","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"888dee3c7f775574aab93ef2e94f9ea4","operationId":"forgetUsingPOST","deprecated":false,"summary":"忘记密码","methodType":"POST","showUrl":"/front/user/forget","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"params","children":null,"description":"params","in":"body","require":true,"type":"","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param128","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param129","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param130","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param128","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param129","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param130","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param128","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param129","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param130","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"8e9d07a3a730a84da0f42bcbd3c90aaf","operationId":"loginUsingPOST","deprecated":false,"summary":"用户登录,使用用户名-邮箱，或是手机号","methodType":"POST","showUrl":"/front/user/login","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"params","children":null,"description":"params","in":"body","require":true,"type":"","schemaValue":null},{"name":"account","children":null,"description":"用户","in":"","require":false,"type":"string","schemaValue":null},{"name":"captcha","children":null,"description":"验证码","in":"","require":false,"type":"string","schemaValue":null},{"name":"mobile","children":null,"description":"电话","in":"","require":false,"type":"string","schemaValue":null},{"name":"password","children":null,"description":"密码","in":"","require":false,"type":"string","schemaValue":null},{"name":"type","children":null,"description":"登陆类型,","in":"","require":false,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param140","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param141","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param142","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param140","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param141","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param142","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param140","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param141","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param142","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"d31778c923377538c15fec8456400724","operationId":"logoutUsingGET","deprecated":false,"summary":"logout","methodType":"GET","showUrl":"/front/user/logout","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"Authorization","children":null,"description":"Authorization","in":"header","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param147","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param148","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param149","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param147","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param148","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param149","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param147","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param148","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param149","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"4eb34caddb6450d18fb10e608779a777","operationId":"registerUsingPOST","deprecated":false,"summary":"register","methodType":"POST","showUrl":"/front/user/register","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"params","children":null,"description":"params","in":"body","require":true,"type":"","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param154","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param155","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param156","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param154","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param155","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param156","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param154","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param155","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param156","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"04193cca750b3ceaa9edb042de005882","operationId":"getUserDiskUsingGET","deprecated":false,"summary":"getUserDisk","methodType":"GET","showUrl":"/front/user/userDisk","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"subject","children":null,"description":"subject","in":"header","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param161","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param162","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param163","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param161","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param162","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param163","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param161","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param162","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param163","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"da90bc92c4e897173e04274ba184022c","operationId":"getUserUsingGET","deprecated":false,"summary":"getUser","methodType":"GET","showUrl":"/front/user/userinfo","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"subject","children":null,"description":"subject","in":"header","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param168","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param169","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param170","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param168","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param169","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param170","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param168","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param169","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param170","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"c36cb1d30ed1b4091c49f5580bf58a59","operationId":"updateUserInfoUsingPUT","deprecated":false,"summary":"updateUserInfo","methodType":"PUT","showUrl":"/front/user/userinfo","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":"{\n  \"email\": \"\",\n  \"mobile\": \"\",\n  \"password\": \"\",\n  \"username\": \"\"\n}","reqParameters":[{"name":"bUser","children":[{"name":"email","children":null,"description":"","in":null,"require":false,"type":"string","schemaValue":null},{"name":"mobile","children":null,"description":"","in":null,"require":false,"type":"string","schemaValue":null},{"name":"password","children":null,"description":"","in":null,"require":false,"type":"string","schemaValue":null},{"name":"username","children":null,"description":"","in":null,"require":false,"type":"string","schemaValue":null}],"description":"bUser","in":"body","require":true,"type":"BUser","schemaValue":"BUser"},{"name":"subject","children":null,"description":"subject","in":"header","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param180","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param181","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param182","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param180","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param181","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param182","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param180","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param181","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param182","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}}],"hasNew":false,"hasChanged":false},{"name":"用户网盘","description":null,"order":2147483647,"author":null,"childrens":[{"id":"fc819b264fecfc7b3cf98bb722d4d2f7","operationId":"deleteFileUsingPOST","deprecated":false,"summary":"删除文件,未测试","methodType":"POST","showUrl":"/front/diskFile/delete","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"diskId","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].body.diskId","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].body.resource","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].headers","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].id","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].method","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"requests[0].url","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null},{"name":"resource","children":null,"description":"","in":"query","require":false,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param198","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param199","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param200","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param198","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param199","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param200","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param198","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param199","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param200","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"80392dc0ccea8e000524096a48f2f2bf","operationId":"getDownloadUrlUsingGET","deprecated":false,"summary":"getDownloadUrl","methodType":"GET","showUrl":"/front/diskFile/get_download_url","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"file_id","children":null,"description":"file_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param206","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param207","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param208","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param206","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param207","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param208","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param206","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param207","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param208","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"074c8cc86930f5931f773a1e68f6e8f7","operationId":"getPathUsingGET","deprecated":false,"summary":"获取文件夹路径","methodType":"GET","showUrl":"/front/diskFile/get_path","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"file_id","children":null,"description":"file_id","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"DiskFileVo"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"diskId","children":null,"description":"","id":"param220","type":"integer(int64)","schemaValue":"integer(int64)"},{"name":"fileName","children":null,"description":"用户文件的名称（同样的文件每个人文件有不同的名称）","id":"param221","type":"string","schemaValue":null},{"name":"file_id","children":null,"description":"云盘文件/文件夹id","id":"param222","type":"string","schemaValue":null},{"name":"parentFileId","children":null,"description":"用户文件的父文件夹名称（同样的文件每个人文件有不同的路径）","id":"param223","type":"string","schemaValue":null},{"name":"status","children":null,"description":"文件状态0待上传,1.已经成功上传2.激活可用3.不可用","id":"param224","type":"string","schemaValue":null},{"name":"type","children":null,"description":"文件类型  1：文件  2：文件夹","id":"param225","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"[\n\t{\n\t\t\"diskId\": 0,\n\t\t\"fileName\": \"\",\n\t\t\"file_id\": \"\",\n\t\t\"parentFileId\": \"\",\n\t\t\"status\": \"\",\n\t\t\"type\": \"\"\n\t}\n]"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"DiskFileVo","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"[\n\t{\n\t\t\"diskId\": 0,\n\t\t\"fileName\": \"\",\n\t\t\"file_id\": \"\",\n\t\t\"parentFileId\": \"\",\n\t\t\"status\": \"\",\n\t\t\"type\": \"\"\n\t}\n]","responseJson":[{"diskId":0,"fileName":"","file_id":"","parentFileId":"","status":"","type":""}],"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"diskId","ignoreFilterName":null,"require":false,"type":"integer(int64)","in":null,"schema":true,"schemaValue":"integer(int64)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param220","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int64)"]},{"name":"fileName","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"用户文件的名称（同样的文件每个人文件有不同的名称）","txtValue":null,"enum":null,"id":"param221","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"file_id","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"云盘文件/文件夹id","txtValue":null,"enum":null,"id":"param222","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"parentFileId","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"用户文件的父文件夹名称（同样的文件每个人文件有不同的路径）","txtValue":null,"enum":null,"id":"param223","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"status","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"文件状态0待上传,1.已经成功上传2.激活可用3.不可用","txtValue":null,"enum":null,"id":"param224","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"type","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"文件类型  1：文件  2：文件夹","txtValue":null,"enum":null,"id":"param225","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"DiskFileVo","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"diskId","ignoreFilterName":null,"require":false,"type":"integer(int64)","in":null,"schema":true,"schemaValue":"integer(int64)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param220","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int64)"]},{"name":"fileName","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"用户文件的名称（同样的文件每个人文件有不同的名称）","txtValue":null,"enum":null,"id":"param221","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"file_id","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"云盘文件/文件夹id","txtValue":null,"enum":null,"id":"param222","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"parentFileId","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"用户文件的父文件夹名称（同样的文件每个人文件有不同的路径）","txtValue":null,"enum":null,"id":"param223","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"status","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"文件状态0待上传,1.已经成功上传2.激活可用3.不可用","txtValue":null,"enum":null,"id":"param224","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"type","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"文件类型  1：文件  2：文件夹","txtValue":null,"enum":null,"id":"param225","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"d5b3a5785921b8cc46846fb1e7dcb567","operationId":"listUsingGET","deprecated":false,"summary":"获取云盘列表","methodType":"GET","showUrl":"/front/diskFile/list/{disk_id}","consumes":["application/x-www-form-urlencoded"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"path","require":true,"type":"string","schemaValue":null},{"name":"pageNum","children":null,"description":"pageNum","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"pageSize","children":null,"description":"pageSize","in":"query","require":false,"type":"integer(int32)","schemaValue":null},{"name":"parent_file_id","children":null,"description":"parent_file_id","in":"query","require":false,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param236","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param237","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param238","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param236","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param237","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param238","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param236","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param237","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param238","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}},{"id":"f9981307131a11ba365bacdb4239ea57","operationId":"updateFileNameUsingPUT","deprecated":false,"summary":"updateFileName","methodType":"PUT","showUrl":"/front/diskFile/update","consumes":["application/json"],"produces":["*/*"],"author":null,"description":"","requestValue":null,"reqParameters":[{"name":"disk_id","children":null,"description":"disk_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"file_id","children":null,"description":"file_id","in":"query","require":true,"type":"string","schemaValue":null},{"name":"name","children":null,"description":"name","in":"query","require":true,"type":"string","schemaValue":null}],"responseCodes":[{"code":"200","description":"OK","schema":"ApiResult"},{"code":"201","description":"Created","schema":null},{"code":"401","description":"Unauthorized","schema":null},{"code":"403","description":"Forbidden","schema":null},{"code":"404","description":"Not Found","schema":null}],"multipartResponseSchema":false,"multipCodeDatas":[{"code":"200","responseHeaderParameters":null,"data":[{"name":"code","children":null,"description":"","id":"param245","type":"integer(int32)","schemaValue":"integer(int32)"},{"name":"data","children":null,"description":"","id":"param246","type":"object","schemaValue":null},{"name":"msg","children":null,"description":"","id":"param247","type":"string","schemaValue":null}],"responseBasicType":false,"responseText":null,"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}"}],"responseHeaderParameters":null,"multipData":{"oas2":true,"code":"200","description":"OK","schema":"ApiResult","schemaTitle":null,"refTreetableparameters":[],"responseCodes":[],"responseValue":"{\n\t\"code\": 0,\n\t\"data\": {},\n\t\"msg\": \"\"\n}","responseJson":{"code":0,"data":{},"msg":""},"responseText":null,"responseBasicType":false,"responseHeaderParameters":null,"responseParameters":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param245","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param246","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param247","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}],"responseParameterRefName":"ApiResult","responseRefParameters":[],"responseTreetableRefParameters":[],"data":[{"name":"code","ignoreFilterName":null,"require":false,"type":"integer(int32)","in":null,"schema":true,"schemaValue":"integer(int32)","value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param245","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":["integer(int32)"]},{"name":"data","ignoreFilterName":null,"require":false,"type":"object","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param246","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]},{"name":"msg","ignoreFilterName":null,"require":false,"type":"string","in":null,"schema":false,"schemaValue":null,"value":null,"validateStatus":false,"validateInstance":null,"def":null,"description":"","txtValue":null,"enum":null,"id":"param247","pid":"-1","level":1,"show":true,"readOnly":false,"example":null,"childrenTypes":[],"children":null,"parentTypes":[]}]}}],"hasNew":false,"hasChanged":true}]};
+        //console(datas);
+        return datas;
+      }
+
+      function main(){
+        //当前接口json数据
+        var d=getData();
+        //请求参数table-header
+        const requestcolumns = [
+          {
+            title: "参数名称",
+            dataIndex: "name",
+            width: "30%"
+          },
+          {
+            title: "参数说明",
+            dataIndex: "description",
+            width: "25%"
+          },
+          {
+            title: "请求类型",
+            dataIndex: "in",
+            scopedSlots: { customRender: "typeTemplate" }
+          },
+          {
+            title: "是否必须",
+            dataIndex: "require",
+            scopedSlots: { customRender: "requireTemplate" }
+          },
+          {
+            title: "数据类型",
+            dataIndex: "type",
+            scopedSlots: { customRender: "datatypeTemplate" }
+          },
+          {
+            title: "schema",
+            dataIndex: "schemaValue",
+            width: "15%"
+          }
+        ];
+        //响应状态table-header
+        const responseStatuscolumns = [
+          {
+            title: "状态码",
+            dataIndex: "code",
+            width: "20%"
+          },
+          {
+            title: "说明",
+            dataIndex: "description",
+            width: "55%",
+            scopedSlots: { customRender: "descriptionTemplate" }
+          },
+          {
+            title: "schema",
+            dataIndex: "schema"
+          }
+        ];
+        //响应头-header
+        const responseHeaderColumns = [
+          {
+            title: "参数名称",
+            dataIndex: "name",
+            width: "30%"
+          },
+          {
+            title: "参数说明",
+            dataIndex: "description",
+            width: "55%"
+          },
+          {
+            title: "数据类型",
+            dataIndex: "type"
+          }
+        ];
+        const responseParametersColumns = [
+          {
+            title: "参数名称",
+            dataIndex: "name",
+            width: "35%"
+          },
+          {
+            title: "参数说明",
+            dataIndex: "description",
+            width: "40%"
+          },
+          {
+            title: "类型",
+            dataIndex: "type"
+          },
+          {
+            title: "schema",
+            dataIndex: "schemaValue",
+            width: "15%"
+          }
+        ];
+        //dataType组件
+        var dataType={
+          name: "DataType",
+          props: {
+            text: {
+              type: String,
+              required: true
+            },
+            record: {
+              type: Object,
+              required: true
+            }
+          },
+          data:function(){
+            return {
+               validators: []
+            }
+          },
+          created() {
+            this.intiValidator();
+          },
+          methods: {
+            intiValidator() {
+              var that = this;
+              const record = this.record;
+              if (record.validateInstance != null) {
+                var len = that.getJsonKeyLength(record.validateInstance);
+                var _size = 0;
+                for (var k in record.validateInstance) {
+                  var str = k + ":" + record.validateInstance[k];
+                  that.validators.push({ key: k, val: str });
+                }
+              }
+            },
+            getJsonKeyLength(json) {
+              var size = 0;
+              if (json != null) {
+                for (var key in json) {
+                  if (json.hasOwnProperty(key)) size++;
+                }
+              }
+              return size;
+            }
+          },
+          template:'<div><span v-if="!record.validateStatus">{{text}}</span><span v-else class="knife4j-request-validate-jsr"><a-tooltip placement="right"><template slot="title"><div v-for="pt in validators" :key="pt.key">{{pt.val}}</div></template>{{text}}</a-tooltip></span></div>'
+
+        }
+        var data={
+          tags:d.tags,
+          instance:d.instance,
+          columns: requestcolumns,
+          responseHeaderColumns: responseHeaderColumns,
+          responseStatuscolumns: responseStatuscolumns,
+          responseParametersColumns: responseParametersColumns,
+          expanRows: true,
+          //接收一个响应信息对象,遍历得到树形结构的值
+          multipCode: false,
+          multipCodeDatas: [],
+          multipData: {},
+          page: false,
+          hideShow:true
+        }
+        new Vue({
+          el:"#knife4jDocument",
+          components:{
+            "DataType":dataType
+          },
+          data(){
+            return data
+          },
+          mounted(){
+             //初始化完成
+            //赋予点击事件;
+            document.getElementById("btnHide").addEventListener("click",function(){
+              //隐藏目录
+              var doc=document.getElementById("knife4jDoc");
+              var docGlobal=document.getElementById("knife4j-doc-m");
+              if(doc.style.display=="none"){
+                doc.style.display="";
+                document.getElementById("btnHide").innerHTML="隐 藏";
+                docGlobal.style.width="400px";
+                docGlobal.style.height="500px";
+              }else{
+                doc.style.display="none";
+                document.getElementById("btnHide").innerHTML="目 录";
+                docGlobal.style.width="52px";
+                docGlobal.style.height="35px";
+              }
+            })
+          },
+          created(){
+           
+          },
+          methods:{
+            genUnionTableKey() {
+              var key="param"+new Date().getTime().toString() + Math.floor(Math.random() * 1000000).toString();
+              return key;
+            },
+            formaterJson(json) {
+              try {
+                if (typeof json != "string") {
+                  json = JSON.stringify(json, undefined, 2);
+                }
+                json = json
+                  .replace(/&/g, "&")
+                  .replace(/</g, "<")
+                  .replace(/>/g, ">");
+                return json.replace(
+                  /("(\u[a-zA-Z0-9]{4}|\[^u]|[^\"])*"(s*:)?|(true|false|null)|-?d+(?:.d*)?(?:[eE][+-]?d+)?)/g,
+                  function(match) {
+                    var cls = "number";
+                    if (/^"/.test(match)) {
+                      if (/:$/.test(match)) {
+                        cls = "key";
+                      } else {
+                        cls = "string";
+                      }
+                    } else if (/true|false/.test(match)) {
+                      cls = "boolean";
+                    } else if (/null/.test(match)) {
+                      cls = "null";
+                    }
+                    return '<span class="' + cls + '">' + match + "</span>";
+                  }
+                );
+              } catch (error) {
+                return json;
+              }
+            }
+          }
+        })
+
+      }
+
+      main();
+      
+      
+    </script>
+  </body>
+  </html>
